@@ -1,0 +1,55 @@
+<div>
+{{ range $res := .result }}
+
+<div><b> Lottery Name : {{ $res.name }} </b></div>
+<div> Lottery Type : {{ $res.type }} </div>
+<div> Autoplayable : {{ $res.autoplayable }} </div>
+<div> Quick picks : {{ $res.quickpick_sizes }} </div>
+
+<div> <b>Draws:</b>
+    {{ range $draw := $res.draws }}
+        <hr>
+        <div> Draw number : {{ $draw.draw_no }} </div>
+        <div> Draw price amount : {{ $draw.prize_pool.amount }} {{ $draw.prize_pool.currency }}</div>
+        <div> Draw jackpot : {{ $draw.jackpot_image.content_description }} </div>
+    {{ end }}
+    <hr>
+</div>
+
+<div> <b>Availability:</b>
+    {{ range $day := $res.days }}
+    <hr>
+    <div> On {{ $day.name }} with value {{ $day.value }} </div>
+    {{ end }}
+    <hr>
+</div>
+
+
+<div> <b>Types of games:</b>
+    {{ range $game := $res.game_types }}
+    <hr>
+    <div> Name : {{ $game.name }} </div>
+
+    <div> Available Offers
+        {{ range $offer := $game.game_offers }}
+            <hr>
+            <div> Offer : {{ $offer.name }} </div>
+            <div> Price Amount : {{ $offer.price.amount }} {{ $offer.price.currency }} </div>
+            <div> Equivalent games {{ $offer.equivalent_games }} with min games {{ $offer.min_games }} and max games {{ $offer.max_games }} </div>
+
+            {{ range $set := $offer.number_sets }}
+                {{ range $s := $set.sets }}
+                    <div> Number set name {{ $s.name }} with count {{ $s.count }}</div>
+                {{ end }}
+                <div> Number set first number being {{ $set.first }} and last being {{ $set.last }}</div>
+            {{ end }}
+
+        {{ end }}
+    </div>
+
+    {{ end }}
+</div>
+<hr>
+<hr>
+{{ end }}
+</div>
